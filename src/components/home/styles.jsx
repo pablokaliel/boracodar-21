@@ -12,6 +12,10 @@ export const Cart = styled.div`
 
   background-color: #18181b;
   position: relative;
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 
 export const HeaderCart = styled.header`
@@ -35,6 +39,9 @@ export const HeaderCart = styled.header`
       color: #f9fafb;
     }
   }
+  @media (max-width: 770px) {
+    padding: 10px;
+  }
 `;
 
 export const ItemsCart = styled.div`
@@ -55,6 +62,11 @@ export const ItemsCart = styled.div`
     outline: none;
     border: none;
   }
+
+  @media (max-width: 770px) {
+    padding: 10px;
+  }
+
 `;
 
 export const ContainerItem = styled.div`
@@ -90,6 +102,10 @@ export const DivImg = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  @media (max-width: 770px) {
+    width: 90px;
+  }
 `;
 
 export const DivInfo = styled.div`
@@ -97,6 +113,9 @@ export const DivInfo = styled.div`
 
   .title {
     width: 195px;
+    @media (max-width: 770px) {
+      width: 170px;
+    }
   }
 
   span {
@@ -158,6 +177,13 @@ export const FooterCart = styled.div`
   position: relative;
   bottom: 0;
   z-index: 3;
+
+  @media (max-width: 770px) {
+    padding: 10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
 `;
 
 export const SubTotal = styled.div`
@@ -211,5 +237,9 @@ export const ButtonEnd = styled.button`
 
   &:hover {
     background: #a855f7;
+  }
+
+  @media (max-width: 770px) {
+    width: 100%;
   }
 `;
