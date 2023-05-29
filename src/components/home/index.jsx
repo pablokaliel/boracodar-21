@@ -16,47 +16,10 @@ import {
 import { IoCloseSharp } from "react-icons/io5";
 import { BsTag } from "react-icons/bs";
 import { useState } from "react";
+import product from "../../data/product";
 
-const product = [
-  {
-    id: 1,
-    title:"Monitor Gamer Curvo 49 DQHD, 240Hz, 1ms, HDMI e DisplayPort, HDR 1000, FreeSync Premium, Ajuste de Altura - LC49G95TSSLXZD",
-    price: "959.90",
-    url: "https://source.unsplash.com/random/?monitor",
-  },
-  {
-    id: 2,
-    title: "Cadeira Gamer  RGB - Preta com Iluminação (Led)",
-    price: "1002.00",
-    url: "https://source.unsplash.com/random/?gamingchair",
-  },
-  {
-    id: 3,
-    title: "Teclado Gamer Mecânico Low Profile RGB AW510K 580",
-    price: "299.90",
-    url: "https://source.unsplash.com/random/?gamingkeyboard/",
-  },
-  {
-    id: 4,
-    title:"Headset Sem Fio Logitech Zone Vibe 100, Drivers 40 mm, USB, Bluetooth, PC, Mobile, Grafite - 981-001214",
-    price: "530.96",
-    url: "https://source.unsplash.com/random/?headset",
-  },
-  {
-    id: 5,
-    title: "Soundbar LG SNH5, 4.1 Canais, Bluetooth, 600W RMS, DTS Virtual X, Sound Sync Wireless, USB - SNH5",
-    price: "1300.00",
-    url: "https://source.unsplash.com/random/?soundbar",
-  },
-  {
-    id: 6,
-    title:"iPhone 11 Apple 64GB, Branco, Tela 6.1, Câmera Dupla 12MP, iOS - MHDC3BR/A",
-    price: " 2839,99",
-    url: "https://source.unsplash.com/random/?iphone",
-  },
-];
 
-function Home() {
+export default function Home() {
 
   const [value, setValue] = useState("");
   const [product2, setProduct2] = useState(product);
@@ -94,7 +57,7 @@ function Home() {
     setProduct2((prevProduct2) => {
       const updatedProduct2 = prevProduct2.map((product) => {
         if (product.id === id) {
-          return {
+            return {
             ...product,
             item: (product.item || 1) + 1,
           };
@@ -133,9 +96,9 @@ function Home() {
           <span>
             Seu Carrinho tem <strong>{numberList} Itens</strong>
           </span>
-          <button>
-            <IoCloseSharp style={{ width: 24, height: 24, color: "white" }} />
-          </button>
+          <button onClick={toggleCartVisibility}>
+          <IoCloseSharp style={{ width: 24, height: 24, color: "white" }} />
+        </button>
         </HeaderCart>
 
         <ItemsCart>
@@ -190,4 +153,3 @@ function Home() {
   );
 }
 
-export default Home;

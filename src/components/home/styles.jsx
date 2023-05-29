@@ -101,6 +101,7 @@ export const DivImg = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit:cover;
   }
 
   @media (max-width: 770px) {
@@ -112,9 +113,13 @@ export const DivInfo = styled.div`
   width: 100%;
 
   .title {
-    width: 195px;
-    @media (max-width: 770px) {
-      width: 170px;
+    width: 145px;
+
+    @media (min-width: 450px) {
+      width: 400px;
+    }
+    @media (min-width: 768px) {
+      width: 195px;
     }
   }
 
