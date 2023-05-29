@@ -17,7 +17,7 @@ O Desafio consiste em reproduzir o layout de um carrinho de compras de um site. 
 <br>
 
 <p align="center">
-  <img src="https://github.com/pablokaliel/boracodar-20/assets/104238801/80dd709f-e0c1-455f-bbdd-4d449b7e0c25" width="100%">
+  <img src="https://github.com/pablokaliel/boracodar-21/assets/104238801/d1f1314e-b4ad-4bbe-8734-cf67fa2dd0ba" width="100%">
 </p>
 
 ## 🚀 Tecnologias
