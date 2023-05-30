@@ -8,7 +8,7 @@ export const Container = styled.div`
 export const Cart = styled.div`
   width: 428px;
   display: flex;
-  flex-direction: column; /* Adicione essa propriedade para que os elementos dentro de Cart sejam empilhados verticalmente */
+  flex-direction: column; // Adicione essa propriedade para que os elementos dentro de Cart sejam empilhados verticalmente
 
   background-color: #18181b;
   position: relative;
@@ -45,8 +45,8 @@ export const HeaderCart = styled.header`
 `;
 
 export const ItemsCart = styled.div`
-  flex: 1; /* Alteração: Ocupar todo o espaço disponível */
-  overflow-y: auto; /* Alteração: Adicionar barra de rolagem vertical */
+  flex: 1; // Alteração: Ocupar todo o espaço disponível
+  overflow-y: auto; // Alteração: Adicionar barra de rolagem vertical
   padding: 32px;
 
   position: relative;
@@ -129,10 +129,10 @@ export const DivInfo = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
 
-    text-overflow: ellipsis; /* Propriedades adicionais para outros navegadores */
+    text-overflow: ellipsis; // Propriedades adicionais para outros navegadores
     display: -moz-box;
     -moz-line-clamp: 2;
-    -moz-box-orient: vertical; /* Propriedade padrão para navegadores compatíveis */
+    -moz-box-orient: vertical; // Propriedade padrão para navegadores compatíveis
     line-clamp: 2;
   }
 `;
@@ -151,6 +151,11 @@ export const DivButton = styled.div`
 
   .purple-button {
     background-color: #a955f7;
+    transition:ease-in-out;
+  }
+  .red-button {
+    background-color: #a955f7;
+    transition:ease-in-out;
   }
 
   button {
@@ -232,6 +237,7 @@ export const ButtonEnd = styled.button`
   height: 64px;
   margin-top: 32px;
 
+  cursor:pointer;
   border: none;
   color: white;
   background: #9333ea;
