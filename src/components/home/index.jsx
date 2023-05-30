@@ -18,28 +18,34 @@ import product from "../../data/product";
 
 import { IoCloseSharp } from "react-icons/io5";
 import { BsTag } from "react-icons/bs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [isLimitReached, setIsLimitReached] = useState(false);
-  const [value, setValue] = useState("");
+  const [discount, setDiscount] = useState("");
+  // const [value, setValue] = useState("");
   const [product2, setProduct2] = useState(product);
-  const [cartVisible, setCartVisible] = useState(true); // Estado para controlar a visibilidade do carrinho
+  const [cartVisible, setCartVisible] = useState(true);
   const [clickedIncrementButton, setClickedIncrementButton] = useState(null);
   const [clickedDecrementButton, setClickedDecrementButton] = useState(null);
   const [purpleButtonVisible, setPurpleButtonVisible] = useState(false);
+  const [totalPriceQuantify, setTotalPriceQuantify] = useState(0);
+  const [discountError, setDiscountError] = useState(false);
 
   const sumPrices = (product) => {
-    const total = product.reduce((acc, product) => {
-      return acc + parseFloat(product.price);
+    let total = product.reduce((acc, product) => {
+      return acc + parseFloat(product.price) * (product.item || 1);
     }, 0);
-    return total.toFixed(2);
+
+    if (!isNaN(discount) && discount !== "") {
+      const discountAmount = (total * 0.1).toFixed(2);
+      total = (total - discountAmount).toFixed(2);
+    }
+
+    return total;
   };
 
-  const totalPrice = sumPrices(product2);
-
   const handleChange = (event) => {
-    setValue(event.target.value.toUpperCase());
+    setDiscount(event.target.value.toUpperCase());
   };
 
   const toggleCartVisibility = () => {
@@ -73,12 +79,10 @@ export default function Home() {
       });
       setClickedIncrementButton(id);
       setClickedDecrementButton(null);
-      setPurpleButtonVisible(true); // Exibir a classe temporariamente
-
+      setPurpleButtonVisible(true);
       setTimeout(() => {
-        setPurpleButtonVisible(false); // Remover a classe após 2 segundos (ajuste se necessário)
-      }, 240); // Definir a duração desejada em milissegundos (2 segundos no exemplo)
-
+        setPurpleButtonVisible(false);
+      }, 240);
       return updatedProduct2;
     });
   };
@@ -87,32 +91,50 @@ export default function Home() {
     setProduct2((prevProduct2) => {
       const updatedProduct2 = prevProduct2.map((product) => {
         if (product.id === id && product.item) {
+          const newItemValue = product.item - 1;
           return {
             ...product,
-            item: product.item - 1,
+            item: newItemValue,
           };
         }
         return product;
       });
       setClickedDecrementButton(id);
       setClickedIncrementButton(null);
-      setPurpleButtonVisible(true); // Exibir a classe temporariamente
-
+      setPurpleButtonVisible(true);
       setTimeout(() => {
-        setPurpleButtonVisible(false); // Remover a classe após 2 segundos (ajuste se necessário)
-      }, 240); // Definir a duração desejada em milissegundos (2 segundos no exemplo)
-
+        setPurpleButtonVisible(false);
+      }, 240);
       return updatedProduct2;
     });
   };
 
+  useEffect(() => {
+    const totalPriceQuantify = sumPrices(product2);
+    setTotalPriceQuantify(totalPriceQuantify);
+  }, [product2, discount]);
+
   const HandleFinally = () => {
-    if (numberList === 0) {
-      return alert(`Para finalizar sua compra, é necessário um ou mais itens.`);
+    if (product2.length === 0) {
+      return alert("Para finalizar sua compra, é necessário um ou mais itens.");
     } else {
-      return alert(
-        `Parabéns pela compra!\nO Cupom aplicado foi: ${value}\nSua compra ficou no valor de: R$${totalPrice}\nObrigado pela preferencia!`
-      );
+      let message = `Parabéns pela compra!\nObrigado pela preferência!\n`;
+
+      if (!isNaN(discount) && discount !== "") {
+        const totalPriceQuantify = sumPrices(product2);
+        const discountAmount = (totalPriceQuantify * 0.1).toFixed(2);
+        const discountedTotal = (totalPriceQuantify - discountAmount).toFixed(
+          2
+        );
+        message += `O Cupom aplicado foi: ${discount}\n`;
+        message += `Valor do desconto: R$${discountAmount}\n`;
+        message += `Sua compra ficou no valor de: R$${discountedTotal}`;
+      } else {
+        const totalPriceQuantify = sumPrices(product2);
+        message += `Sua compra ficou no valor de: R$${totalPriceQuantify}`;
+      }
+
+      return alert(message);
     }
   };
 
@@ -188,19 +210,19 @@ export default function Home() {
         <FooterCart>
           <SubTotal>
             <span>Total:</span>
-            <h1>{totalPrice}</h1>
+            <h1>{totalPriceQuantify}</h1>
           </SubTotal>
           <DivCupom>
             <BsTag style={{ width: 20, height: 20 }} />
             <input
               type="text"
               placeholder="Adicionar Cupom"
-              value={value}
+              value={discount}
               onChange={handleChange}
-              maxLength={6}
+              className={discountError ? "error" : ""}
             />
           </DivCupom>
-          <ButtonEnd onClick={() => HandleFinally()}>Finalizar</ButtonEnd>
+          <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
         </FooterCart>
       </Cart>
     </Container>
