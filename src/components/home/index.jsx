@@ -17,14 +17,13 @@ import {
 import product from "../../data/product";
 
 import { IoCloseSharp } from "react-icons/io5";
-import { BsTag } from "react-icons/bs";
+import { BsTag, BsCart3 } from "react-icons/bs";
 import { useState, useEffect } from "react";
 
 export default function Home() {
   const [discount, setDiscount] = useState("");
-  // const [value, setValue] = useState("");
   const [product2, setProduct2] = useState(product);
-  const [cartVisible, setCartVisible] = useState(true);
+  const [cartVisible, setCartVisible] = useState(false); // Alterado para false para começar com o carrinho fechado
   const [clickedIncrementButton, setClickedIncrementButton] = useState(null);
   const [clickedDecrementButton, setClickedDecrementButton] = useState(null);
   const [purpleButtonVisible, setPurpleButtonVisible] = useState(false);
@@ -142,89 +141,92 @@ export default function Home() {
 
   return (
     <Container>
-      <Cart>
-        <HeaderCart>
-          <span>
-            Seu Carrinho tem <strong>{numberList} Itens</strong>
-          </span>
-          <button onClick={toggleCartVisibility}>
-            <IoCloseSharp style={{ width: 24, height: 24, color: "white" }} />
-          </button>
-        </HeaderCart>
+      {cartVisible ? (
+        <Cart style={{ display: cartVisible ? "flex" : "none" }}>
+          <HeaderCart>
+            <span>
+              Seu Carrinho tem <strong>{numberList} Itens</strong>
+            </span>
+            <button onClick={toggleCartVisibility}>
+              <IoCloseSharp style={{ width: 24, height: 24, color: "white" }} />
+            </button>
+          </HeaderCart>
 
-        <ItemsCart>
-          {product2
-            .slice(0, numberList)
-            .map(({ id, url, title, price, item }) => {
-              return (
-                <ContainerItem
-                  style={{ display: cartVisible ? "flex" : "none" }}
-                  key={id}
-                >
-                  <button onClick={() => removeItem(id)} className="close">
-                    <IoCloseSharp
-                      style={{ width: 20, height: 20, color: "#a855f7ff" }}
-                    />
-                  </button>
-                  <DivImg>
-                    <img src={url} alt="Imagem aleatoria" />
-                  </DivImg>
-                  <DivInfo>
-                    <span className="title">{title}</span>
-                    <DivPrice>
-                      <span>R${price}</span>
-                      <DivButton>
-                        <button
-                          onClick={() => decrement(id)}
-                          className={
-                            clickedDecrementButton === id
-                              ? purpleButtonVisible
-                                ? "purple-button"
+          <ItemsCart>
+            {product2
+              .slice(0, numberList)
+              .map(({ id, url, title, price, item }) => {
+                return (
+                  <ContainerItem key={id}>
+                    <button onClick={() => removeItem(id)} className="close">
+                      <IoCloseSharp
+                        style={{ width: 20, height: 20, color: "#a855f7ff" }}
+                      />
+                    </button>
+                    <DivImg>
+                      <img src={url} alt="Imagem aleatoria" />
+                    </DivImg>
+                    <DivInfo>
+                      <span className="title">{title}</span>
+                      <DivPrice>
+                        <span>R${price}</span>
+                        <DivButton>
+                          <button
+                            onClick={() => decrement(id)}
+                            className={
+                              clickedDecrementButton === id
+                                ? purpleButtonVisible
+                                  ? "purple-button"
+                                  : ""
                                 : ""
-                              : ""
-                          }
-                        >
-                          -
-                        </button>
-                        <span>{item || 1}</span>
-                        <button
-                          onClick={() => increment(id)}
-                          className={
-                            clickedIncrementButton === id
-                              ? purpleButtonVisible
-                                ? "purple-button"
+                            }
+                          >
+                            -
+                          </button>
+                          <span>{item || 1}</span>
+                          <button
+                            onClick={() => increment(id)}
+                            className={
+                              clickedIncrementButton === id
+                                ? purpleButtonVisible
+                                  ? "purple-button"
+                                  : ""
                                 : ""
-                              : ""
-                          }
-                        >
-                          +
-                        </button>
-                      </DivButton>
-                    </DivPrice>
-                  </DivInfo>
-                </ContainerItem>
-              );
-            })}
-        </ItemsCart>
+                            }
+                          >
+                            +
+                          </button>
+                        </DivButton>
+                      </DivPrice>
+                    </DivInfo>
+                  </ContainerItem>
+                );
+              })}
+          </ItemsCart>
 
-        <FooterCart>
-          <SubTotal>
-            <span>Total:</span>
-            <h1>{totalPriceQuantify}</h1>
-          </SubTotal>
-          <DivCupom>
-            <BsTag style={{ width: 20, height: 20 }} />
-            <input
-              type="text"
-              placeholder="Adicionar Cupom"
-              value={discount}
-              onChange={handleChange}
-              className={discountError ? "error" : ""}
-            />
-          </DivCupom>
-          <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
-        </FooterCart>
-      </Cart>
+          <FooterCart>
+            <SubTotal>
+              <span>Total:</span>
+              <h1>{totalPriceQuantify}</h1>
+            </SubTotal>
+            <DivCupom>
+              <BsTag style={{ width: 20, height: 20 }} />
+              <input
+                type="text"
+                placeholder="Adicionar Cupom"
+                value={discount}
+                onChange={handleChange}
+                className={discountError ? "error" : ""}
+              />
+            </DivCupom>
+            <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
+          </FooterCart>
+        </Cart>
+      ) : (
+        <button className="open" onClick={toggleCartVisibility}>
+          <BsCart3 style={{ width: 24, height: 24 }} />
+        </button>
+      )}
     </Container>
   );
 }

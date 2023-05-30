@@ -3,18 +3,44 @@ import styled from "styled-components";
 export const Container = styled.div`
   height: 100vh;
   display: flex;
-  justify-content: end;
+  justify-content: center; /* Centralizar horizontalmente */
+  align-items: center; /* Centralizar verticalmente */
+
+  .open {
+    width: 240px;
+    padding: 10px 0px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background: #9333ea;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    transition: all 0.3s;
+
+    &:hover {
+      background: #a855f7;
+    }
+  }
 `;
+
 export const Cart = styled.div`
   width: 428px;
   display: flex;
+  height: 800px;
   flex-direction: column; // Adicione essa propriedade para que os elementos dentro de Cart sejam empilhados verticalmente
 
+  box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.02),
+    0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.13),
+    0px 7px 16px rgba(0, 0, 0, 0.15), 0px 0px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 18px;
   background-color: #18181b;
   position: relative;
 
   @media (max-width: 770px) {
     width: 100%;
+    height: 100%;
+    border-radius: 4px;
   }
 `;
 
@@ -48,6 +74,7 @@ export const ItemsCart = styled.div`
   flex: 1; // Alteração: Ocupar todo o espaço disponível
   overflow-y: auto; // Alteração: Adicionar barra de rolagem vertical
   padding: 32px;
+  max-height: 630px;
 
   position: relative;
   border-top: 1px solid #3f3f46;
@@ -66,7 +93,6 @@ export const ItemsCart = styled.div`
   @media (max-width: 770px) {
     padding: 10px;
   }
-
 `;
 
 export const ContainerItem = styled.div`
@@ -101,7 +127,7 @@ export const DivImg = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit:cover;
+    object-fit: cover;
   }
 
   @media (max-width: 770px) {
@@ -151,11 +177,11 @@ export const DivButton = styled.div`
 
   .purple-button {
     background-color: #a955f7;
-    transition:ease-in-out;
+    transition: ease-in-out;
   }
   .red-button {
     background-color: #a955f7;
-    transition:ease-in-out;
+    transition: ease-in-out;
   }
 
   button {
@@ -190,9 +216,9 @@ export const FooterCart = styled.div`
 
   @media (max-width: 770px) {
     padding: 10px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -237,7 +263,7 @@ export const ButtonEnd = styled.button`
   height: 64px;
   margin-top: 32px;
 
-  cursor:pointer;
+  cursor: pointer;
   border: none;
   color: white;
   background: #9333ea;

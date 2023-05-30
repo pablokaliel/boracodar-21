@@ -28,7 +28,7 @@ export default createGlobalStyle`
   }
 
   :root {
-    --primary: #09090B;
+    --primary: transparent;
     --secondary: #3F3F46;
   }
 
@@ -44,6 +44,10 @@ export default createGlobalStyle`
   *::-webkit-scrollbar-thumb {
     background-color: var(--secondary);
     border-radius: 14px;
+  }
+
+  button{
+    cursor:pointer;
   }
 
 `;
