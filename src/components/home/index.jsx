@@ -117,24 +117,22 @@ export default function Home() {
       return alert("Para finalizar sua compra, é necessário um ou mais itens.");
     } else {
       let message = `Parabéns pela compra!\nObrigado pela preferência!\n`;
-
+  
       if (!isNaN(discount) && discount !== "") {
-        const totalPriceQuantify = sumPrices(product2);
         const discountAmount = (totalPriceQuantify * 0.1).toFixed(2);
-        const discountedTotal = (totalPriceQuantify - discountAmount).toFixed(
-          2
-        );
+        const discountedTotal = (totalPriceQuantify - discountAmount).toFixed(2);
         message += `O Cupom aplicado foi: ${discount}\n`;
         message += `Valor do desconto: R$${discountAmount}\n`;
-        message += `Sua compra ficou no valor de: R$${discountedTotal}`;
+        message += `Sua compra ficou no valor de: R$${totalPriceQuantify}\n`;
       } else {
-        const totalPriceQuantify = sumPrices(product2);
-        message += `Sua compra ficou no valor de: R$${totalPriceQuantify}`;
+        const totalPrice = totalPriceQuantify.toFixed(2);
+        message += `Sua compra ficou no valor de: R$${totalPrice}`;
       }
 
       return alert(message);
     }
   };
+  
 
   const numberList = product2.length;
 
