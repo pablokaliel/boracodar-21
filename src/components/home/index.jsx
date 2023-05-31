@@ -266,5 +266,3 @@ export default function Home() {
     </Container>
   );
 }
-
-//https://produto.mercadolivre.com.br/MLB-3292776267-sandalia-feminina-fisherman-tratorada-tendncia-original-_JM?attributes=COLOR_SECONDARY_COLOR%3AUHJldG8%3D%2CSIZE%3AMzcgQlI%3D&quantity=1
