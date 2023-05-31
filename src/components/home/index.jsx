@@ -23,7 +23,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [discount, setDiscount] = useState("");
   const [product2, setProduct2] = useState(product);
-  const [cartVisible, setCartVisible] = useState(false); // Alterado para false para começar com o carrinho fechado
+  const [cartVisible, setCartVisible] = useState(false);
   const [clickedIncrementButton, setClickedIncrementButton] = useState(null);
   const [clickedDecrementButton, setClickedDecrementButton] = useState(null);
   const [purpleButtonVisible, setPurpleButtonVisible] = useState(false);
@@ -33,14 +33,13 @@ export default function Home() {
   const sumPrices = (product) => {
     let total = product.reduce((acc, product) => {
       return acc + parseFloat(product.price) * (product.item || 1);
-    }, 0);
+    }, 0.0);
 
     if (!isNaN(discount) && discount !== "") {
       const discountAmount = (total * 0.1).toFixed(2);
       total = (total - discountAmount).toFixed(2);
     }
-
-    return total;
+    return parseFloat(total);
   };
 
   const handleChange = (event) => {
@@ -142,91 +141,130 @@ export default function Home() {
   return (
     <Container>
       {cartVisible ? (
-        <Cart style={{ display: cartVisible ? "flex" : "none" }}>
-          <HeaderCart>
-            <span>
-              Seu Carrinho tem <strong>{numberList} Itens</strong>
-            </span>
-            <button onClick={toggleCartVisibility}>
-              <IoCloseSharp style={{ width: 24, height: 24, color: "white" }} />
-            </button>
-          </HeaderCart>
+        product2.length === 0 ? (
+          <div>
+            <Cart style={{ display: cartVisible ? "flex" : "none" }}>
+              <HeaderCart>
+                <span>
+                  Seu Carrinho tem <strong>{numberList} Itens</strong>
+                </span>
+                <button onClick={toggleCartVisibility}>
+                  <IoCloseSharp
+                    style={{ width: 24, height: 24, color: "white" }}
+                  />
+                </button>
+              </HeaderCart>
 
-          <ItemsCart>
-            {product2
-              .slice(0, numberList)
-              .map(({ id, url, title, price, item }) => {
-                return (
-                  <ContainerItem key={id}>
-                    <button onClick={() => removeItem(id)} className="close">
-                      <IoCloseSharp
-                        style={{ width: 20, height: 20, color: "#a855f7ff" }}
-                      />
-                    </button>
-                    <DivImg>
-                      <img src={url} alt="Imagem aleatoria" />
-                    </DivImg>
-                    <DivInfo>
-                      <span className="title">{title}</span>
-                      <DivPrice>
-                        <span>R${price}</span>
-                        <DivButton>
-                          <button
-                            onClick={() => decrement(id)}
-                            className={
-                              clickedDecrementButton === id
-                                ? purpleButtonVisible
-                                  ? "purple-button"
-                                  : ""
-                                : ""
-                            }
-                          >
-                            -
-                          </button>
-                          <span>{item || 1}</span>
-                          <button
-                            onClick={() => increment(id)}
-                            className={
-                              clickedIncrementButton === id
-                                ? purpleButtonVisible
-                                  ? "purple-button"
-                                  : ""
-                                : ""
-                            }
-                          >
-                            +
-                          </button>
-                        </DivButton>
-                      </DivPrice>
-                    </DivInfo>
-                  </ContainerItem>
-                );
-              })}
-          </ItemsCart>
+              <ItemsCart>
+                <div className="null">
+                  <span className="null-text">seu carrinho esta vazio</span>
+                </div>
+              </ItemsCart>
 
-          <FooterCart>
-            <SubTotal>
-              <span>Total:</span>
-              <h1>{totalPriceQuantify}</h1>
-            </SubTotal>
-            <DivCupom>
-              <BsTag style={{ width: 20, height: 20 }} />
-              <input
-                type="text"
-                placeholder="Adicionar Cupom"
-                value={discount}
-                onChange={handleChange}
-                className={discountError ? "error" : ""}
-              />
-            </DivCupom>
-            <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
-          </FooterCart>
-        </Cart>
+              <FooterCart>
+                <SubTotal>
+                  <span>Total:</span>
+                  <h1>{totalPriceQuantify}</h1>
+                </SubTotal>
+
+                <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
+              </FooterCart>
+            </Cart>
+          </div>
+        ) : (
+          <Cart style={{ display: cartVisible ? "flex" : "none" }}>
+            <HeaderCart>
+              <span>
+                Seu Carrinho tem <strong>{numberList} Itens</strong>
+              </span>
+              <button onClick={toggleCartVisibility}>
+                <IoCloseSharp
+                  style={{ width: 24, height: 24, color: "white" }}
+                />
+              </button>
+            </HeaderCart>
+
+            <ItemsCart>
+              {product2
+                .slice(0, numberList)
+                .map(({ id, url, title, price, item }) => {
+                  return (
+                    <ContainerItem key={id}>
+                      <button onClick={() => removeItem(id)} className="close">
+                        <IoCloseSharp
+                          style={{ width: 20, height: 20, color: "#a855f7ff" }}
+                        />
+                      </button>
+                      <DivImg>
+                        <img src={url} alt="Imagem aleatoria" />
+                      </DivImg>
+                      <DivInfo>
+                        <span className="title">{title}</span>
+                        <DivPrice>
+                          <span>R${price}</span>
+                          <DivButton>
+                            <button
+                              onClick={() => decrement(id)}
+                              className={
+                                clickedDecrementButton === id
+                                  ? purpleButtonVisible
+                                    ? "purple-button"
+                                    : ""
+                                  : ""
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{item || 1}</span>
+                            <button
+                              onClick={() => increment(id)}
+                              className={
+                                clickedIncrementButton === id
+                                  ? purpleButtonVisible
+                                    ? "purple-button"
+                                    : ""
+                                  : ""
+                              }
+                            >
+                              +
+                            </button>
+                          </DivButton>
+                        </DivPrice>
+                      </DivInfo>
+                    </ContainerItem>
+                  );
+                })}
+            </ItemsCart>
+
+            <FooterCart>
+              <SubTotal>
+                <span>Total:</span>
+                <h1>{totalPriceQuantify.toFixed(2)}</h1>
+              </SubTotal>
+              <DivCupom>
+                <BsTag style={{ width: 20, height: 20 }} />
+                <input
+                  type="text"
+                  placeholder="Adicionar Cupom"
+                  value={discount}
+                  onChange={handleChange}
+                  className={discountError ? "error" : ""}
+                />
+              </DivCupom>
+              <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
+            </FooterCart>
+          </Cart>
+        )
       ) : (
-        <button className="open" onClick={toggleCartVisibility}>
-          <BsCart3 style={{ width: 24, height: 24 }} />
-        </button>
+        <div className="cart-open">
+          <span>clique para abrir seu carrinho:</span>
+          <button className="open" onClick={toggleCartVisibility}>
+            <BsCart3 style={{ width: 24, height: 24 }} />
+          </button>
+        </div>
       )}
     </Container>
   );
 }
+
+//https://produto.mercadolivre.com.br/MLB-3292776267-sandalia-feminina-fisherman-tratorada-tendncia-original-_JM?attributes=COLOR_SECONDARY_COLOR%3AUHJldG8%3D%2CSIZE%3AMzcgQlI%3D&quantity=1

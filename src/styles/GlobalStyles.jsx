@@ -7,9 +7,17 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  :root {
+    --primary: transparent;
+    --secondary: #3F3F46;
+    --background:#09090B;
+    --textColor:#fff;
+    --backgroundCart:#18181b;
+  }
+
   body {
-    background: #09090B;
-    color: #fff;
+    background: var(--background);
+    color: var(--textColor);
   }
 
   #root,
@@ -18,18 +26,6 @@ export default createGlobalStyle`
     width: 100%;
     height: 100%;
     font-family:"Inter"
-  }
-
-  #root,
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
-
-  :root {
-    --primary: transparent;
-    --secondary: #3F3F46;
   }
 
   *::-webkit-scrollbar {
@@ -49,5 +45,4 @@ export default createGlobalStyle`
   button{
     cursor:pointer;
   }
-
 `;

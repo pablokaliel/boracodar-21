@@ -3,18 +3,25 @@ import styled from "styled-components";
 export const Container = styled.div`
   height: 100vh;
   display: flex;
-  justify-content: center; /* Centralizar horizontalmente */
-  align-items: center; /* Centralizar verticalmente */
+  justify-content: center;
+  align-items: center;
+
+  .cart-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
 
   .open {
-    width: 240px;
-    padding: 10px 0px;
-    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+
     border: none;
     color: white;
     background: #9333ea;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 
     transition: all 0.3s;
 
@@ -26,16 +33,17 @@ export const Container = styled.div`
 
 export const Cart = styled.div`
   width: 428px;
+  max-height: 800px;
   display: flex;
-  height: 800px;
-  flex-direction: column; // Adicione essa propriedade para que os elementos dentro de Cart sejam empilhados verticalmente
+  flex-direction: column;
+  position: relative;
 
-  box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.02),
+  box-shadow:
+    0px 113px 45px rgba(0, 0, 0, 0.02),
     0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.13),
     0px 7px 16px rgba(0, 0, 0, 0.15), 0px 0px 0px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
-  background-color: #18181b;
-  position: relative;
+  background-color: var(--backgroundCart);
 
   @media (max-width: 770px) {
     width: 100%;
@@ -45,10 +53,10 @@ export const Cart = styled.div`
 `;
 
 export const HeaderCart = styled.header`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   padding: 24px 32px;
 
   button {
@@ -71,12 +79,12 @@ export const HeaderCart = styled.header`
 `;
 
 export const ItemsCart = styled.div`
-  flex: 1; // Alteração: Ocupar todo o espaço disponível
-  overflow-y: auto; // Alteração: Adicionar barra de rolagem vertical
-  padding: 32px;
+  flex: 1;
   max-height: 630px;
-
   position: relative;
+  padding: 32px;
+
+  overflow-y: auto;
   border-top: 1px solid #3f3f46;
   transition: all 0.3s;
 
@@ -88,6 +96,20 @@ export const ItemsCart = styled.div`
     background-color: transparent;
     outline: none;
     border: none;
+  }
+
+  .null {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 20px 0px;
+  }
+
+  .null-text {
+    font-size: 20px;
   }
 
   @media (max-width: 770px) {
@@ -155,10 +177,10 @@ export const DivInfo = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
 
-    text-overflow: ellipsis; // Propriedades adicionais para outros navegadores
+    text-overflow: ellipsis;
     display: -moz-box;
     -moz-line-clamp: 2;
-    -moz-box-orient: vertical; // Propriedade padrão para navegadores compatíveis
+    -moz-box-orient: vertical;
     line-clamp: 2;
   }
 `;
@@ -227,6 +249,7 @@ export const SubTotal = styled.div`
   justify-content: space-between;
 
   font-size: 20px;
+
   h1 {
     font-size: 20px;
   }
@@ -263,7 +286,6 @@ export const ButtonEnd = styled.button`
   height: 64px;
   margin-top: 32px;
 
-  cursor: pointer;
   border: none;
   color: white;
   background: #9333ea;
