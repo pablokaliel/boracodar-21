@@ -1,4 +1,3 @@
-
 const product = [
   {
     id: 1,
@@ -35,6 +34,12 @@ const product = [
     title:"iPhone 11 Apple 64GB, Branco, Tela 6.1, Câmera Dupla 12MP, iOS - MHDC3BR/A",
     price: " 2839,99",
     url: "https://source.unsplash.com/random/?iphone",
+  },
+  {
+    id: 7,
+    title:"8Bitdo White Ultimate Wired Controller for Xbox Series X, Xbox Series S, Xbox One, Windows 10 & Windows 11",
+    price: "327.55",
+    url: "https://source.unsplash.com/random/?controller,gaming",
   },
 ];
 
