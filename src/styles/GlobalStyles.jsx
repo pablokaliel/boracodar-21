@@ -13,6 +13,8 @@ export default createGlobalStyle`
     --background:#09090B;
     --textColor:#fff;
     --backgroundCart:#18181b;
+    --buttonColor:#9333ea;
+    --buttonHover:#a855f7;
   }
 
   body {
@@ -42,7 +44,7 @@ export default createGlobalStyle`
     border-radius: 14px;
   }
 
-  button{
+  button {
     cursor:pointer;
   }
 `;

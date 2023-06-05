@@ -17,124 +17,45 @@ import {
 import product from "../../data/product";
 
 import { IoCloseSharp } from "react-icons/io5";
+import { AiOutlineLoading } from "react-icons/ai";
 import { BsTag, BsCart3 } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import { useCustomFunctions } from "../../hooks/useCustomFunctions";
+import { useState } from "react";
 
 export default function Home() {
-  const [discount, setDiscount] = useState("");
-  const [product2, setProduct2] = useState(product);
-  const [cartVisible, setCartVisible] = useState(false);
-  const [clickedIncrementButton, setClickedIncrementButton] = useState(null);
-  const [clickedDecrementButton, setClickedDecrementButton] = useState(null);
-  const [purpleButtonVisible, setPurpleButtonVisible] = useState(false);
-  const [totalPriceQuantify, setTotalPriceQuantify] = useState(0);
-  const [discountError, setDiscountError] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
-  const sumPrices = (product) => {
-    let total = product.reduce((acc, product) => {
-      return acc + parseFloat(product.price) * (product.item || 1);
-    }, 0.0);
+  const handleFinalizeClick = () => {
+    setLoading(true);
+    // Realize quaisquer ações necessárias
 
-    if (!isNaN(discount) && discount !== "") {
-      const discountAmount = (total * 0.1).toFixed(2);
-      total = (total - discountAmount).toFixed(2);
-    }
-    return parseFloat(total);
+    // Simule uma operação assíncrona
+    setTimeout(() => {
+      // Realize quaisquer ações pós-finalização
+      setLoading(false);
+
+      // Chame a função de finalização aqui
+      handleFinally();
+    }, 2000);
   };
 
-  const handleChange = (event) => {
-    setDiscount(event.target.value.toUpperCase());
-  };
-
-  const toggleCartVisibility = () => {
-    setCartVisible(!cartVisible);
-  };
-
-  const removeItem = (id) => {
-    setProduct2((prevProduct2) => {
-      const updatedProduct2 = prevProduct2.filter(
-        (product) => product.id !== id
-      );
-      return updatedProduct2;
-    });
-  };
-
-  const increment = (id) => {
-    setProduct2((prevProduct2) => {
-      const updatedProduct2 = prevProduct2.map((product) => {
-        if (product.id === id) {
-          const newItemValue = (product.item || 1) + 1;
-          if (newItemValue === 6) {
-            alert("O valor máximo por compra foi atingido!");
-            return product; // Retorna o produto sem atualizar a quantidade
-          }
-          return {
-            ...product,
-            item: newItemValue,
-          };
-        }
-        return product;
-      });
-      setClickedIncrementButton(id);
-      setClickedDecrementButton(null);
-      setPurpleButtonVisible(true);
-      setTimeout(() => {
-        setPurpleButtonVisible(false);
-      }, 240);
-      return updatedProduct2;
-    });
-  };
-
-  const decrement = (id) => {
-    setProduct2((prevProduct2) => {
-      const updatedProduct2 = prevProduct2.map((product) => {
-        if (product.id === id && product.item) {
-          const newItemValue = product.item - 1;
-          return {
-            ...product,
-            item: newItemValue,
-          };
-        }
-        return product;
-      });
-      setClickedDecrementButton(id);
-      setClickedIncrementButton(null);
-      setPurpleButtonVisible(true);
-      setTimeout(() => {
-        setPurpleButtonVisible(false);
-      }, 240);
-      return updatedProduct2;
-    });
-  };
-
-  useEffect(() => {
-    const totalPriceQuantify = sumPrices(product2);
-    setTotalPriceQuantify(totalPriceQuantify);
-  }, [product2, discount]);
-
-  const HandleFinally = () => {
-    if (product2.length === 0) {
-      return alert("Para finalizar sua compra, é necessário um ou mais itens.");
-    } else {
-      let message = `Parabéns pela compra!\nObrigado pela preferência!\n`;
-  
-      if (!isNaN(discount) && discount !== "") {
-        const discountAmount = (totalPriceQuantify * 0.1).toFixed(2);
-        const discountedTotal = (totalPriceQuantify - discountAmount).toFixed(2);
-        message += `O Cupom aplicado foi: ${discount}\n`;
-        message += `Valor do desconto: R$${discountAmount}\n`;
-        message += `Sua compra ficou no valor de: R$${totalPriceQuantify}\n`;
-      } else {
-        const totalPrice = totalPriceQuantify.toFixed(2);
-        message += `Sua compra ficou no valor de: R$${totalPrice}`;
-      }
-
-      return alert(message);
-    }
-  };
-  
-
-  const numberList = product2.length;
+  const {
+    discount,
+    product2,
+    cartVisible,
+    clickedIncrementButton,
+    clickedDecrementButton,
+    purpleButtonVisible,
+    totalPriceQuantify,
+    discountError,
+    handleChange,
+    toggleCartVisibility,
+    removeItem,
+    increment,
+    decrement,
+    handleFinally,
+    numberList,
+  } = useCustomFunctions(product);
 
   return (
     <Container>
@@ -165,7 +86,7 @@ export default function Home() {
                   <h1>{totalPriceQuantify}</h1>
                 </SubTotal>
 
-                <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
+                <ButtonEnd onClick={handleFinally}>Finalizar</ButtonEnd>
               </FooterCart>
             </Cart>
           </div>
@@ -199,7 +120,7 @@ export default function Home() {
                       <DivInfo>
                         <span className="title">{title}</span>
                         <DivPrice>
-                          <span>R${price}</span>
+                          <span>R$ {price}</span>
                           <DivButton>
                             <button
                               onClick={() => decrement(id)}
@@ -249,7 +170,19 @@ export default function Home() {
                   className={discountError ? "error" : ""}
                 />
               </DivCupom>
-              <ButtonEnd onClick={HandleFinally}>Finalizar</ButtonEnd>
+              <ButtonEnd onClick={handleFinalizeClick}>
+                {isLoading ? (
+                  <>
+                    <AiOutlineLoading
+                      style={{ width: 20, height: 20 }}
+                      className="loading-icon"
+                    />{" "}
+                    Finalizando...
+                  </>
+                ) : (
+                  "Finalizar"
+                )}
+              </ButtonEnd>
             </FooterCart>
           </Cart>
         )

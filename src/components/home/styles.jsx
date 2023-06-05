@@ -19,14 +19,14 @@ export const Container = styled.div`
     border-radius: 100%;
 
     border: none;
-    color: white;
-    background: #9333ea;
+    color: var(--textColor);
+    background: var(--buttonColor);
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
     transition: all 0.3s;
 
     &:hover {
-      background: #a855f7;
+      background: var(--buttonHover);
     }
   }
 `;
@@ -38,8 +38,7 @@ export const Cart = styled.div`
   flex-direction: column;
   position: relative;
 
-  box-shadow:
-    0px 113px 45px rgba(0, 0, 0, 0.02),
+  box-shadow: 0px 113px 45px rgba(0, 0, 0, 0.02),
     0px 64px 38px rgba(0, 0, 0, 0.08), 0px 28px 28px rgba(0, 0, 0, 0.13),
     0px 7px 16px rgba(0, 0, 0, 0.15), 0px 0px 0px rgba(0, 0, 0, 0.15);
   border-radius: 18px;
@@ -85,7 +84,7 @@ export const ItemsCart = styled.div`
   padding: 32px;
 
   overflow-y: auto;
-  border-top: 1px solid #3f3f46;
+  border-top: 1px solid var(--secondary);
   transition: all 0.3s;
 
   .close {
@@ -143,7 +142,7 @@ export const DivImg = styled.div`
   flex-shrink: 0;
   overflow: hidden;
 
-  background-color: white;
+  background-color: var(--textColor);
   border-radius: 8px;
 
   img {
@@ -198,11 +197,11 @@ export const DivButton = styled.div`
   gap: 12px;
 
   .purple-button {
-    background-color: #a955f7;
+    background-color: var(--buttonColor);
     transition: ease-in-out;
   }
   .red-button {
-    background-color: #a955f7;
+    background-color: var(--buttonColor);
     transition: ease-in-out;
   }
 
@@ -214,14 +213,14 @@ export const DivButton = styled.div`
     justify-content: center;
     align-items: center;
 
-    border: 1.5px solid #3f3f46;
-    color: white;
+    border: 1.5px solid var(--secondary);
+    color: var(--textColor);
     filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.1));
     border-radius: 8px;
     background-color: transparent;
 
     &:hover {
-      border: 1.5px solid #a855f7;
+      border: 1.5px solid var(--buttonHover);
     }
   }
 `;
@@ -230,7 +229,7 @@ export const FooterCart = styled.div`
   height: 224px;
   width: 100%;
   padding: 32px;
-  border-top: 1px solid #3f3f46;
+  border-top: 1px solid var(--secondary);
 
   position: relative;
   bottom: 0;
@@ -262,7 +261,7 @@ export const DivCupom = styled.div`
   gap: 8px;
 
   margin-top: 16px;
-  color: #a855f7;
+  color: var(--buttonHover);
 
   input {
     width: 100px;
@@ -270,13 +269,13 @@ export const DivCupom = styled.div`
     outline: none;
     border: none;
     background-color: transparent;
-    color: #a855f7;
+    color: var(--buttonHover);
 
     &::placeholder {
-      color: #a855f7;
+      color: var(--buttonHover);
     }
     &:focus {
-      border-bottom: 1px solid #a855f7;
+      border-bottom: 1px solid var(--buttonHover);
     }
   }
 `;
@@ -285,17 +284,35 @@ export const ButtonEnd = styled.button`
   width: 364px;
   height: 64px;
   margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  .loading-icon {
+    margin-right: 5px;
+    animation: spin 1s infinite linear;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
   border: none;
-  color: white;
-  background: #9333ea;
+  color: var(--textColor);
+  background: var(--buttonColor);
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 
   transition: all 0.3s;
 
   &:hover {
-    background: #a855f7;
+    background: var(--buttonHover);
   }
 
   @media (max-width: 770px) {
